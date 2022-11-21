@@ -1,56 +1,47 @@
-class App extends React.Component{
-    constructor(){
-    super()
-    this.state={time:new Date()}
-    }
+// Variable
+const { useState, useEffect } = React;
 
-    currentTime(){
-    this.setState({
-    time: new Date()
-    })
-    }
+// app component
+function App () {
+
+    const [hours, setHours] = useState("00");
+    const [minutes, setMinutes] = useState("00");
+    const [seconds, setSeconds] = useState("00");
+    const [date, setDate] = useState("date");
+
+    useEffect(
+        () => {
+            const intervalId= setInterval(()=>{
+                let d=new Date();
+                var h=d.getHours().toString();
+                var m=d.getMinutes().toString();
+                var s=d.getSeconds().toString();
+                var z=d.getDate().toString()+" / "
+                    +(d.getMonth()+1).toString()+" / "
+                    +d.getFullYear();
+        
+                setDate(z);
+                setHours(h.padStart(2,'0'));
+                setMinutes(m.padStart(2,'0'));
+                setSeconds(s.padStart(2,'0'));
+            
+                return () => clearInterval(intervalId); 
+                },1000);
+            },[seconds,minutes,hours,date]);
+        
     
-    componentWillMount(){
-    setInterval(()=> this.currentTime(), 1000)
-    }
-    
-    render(){
-    const date = new Date()
-    const hours = date.getHours()
-    let color
-    let timeOfDay
-    let backgroundImage
-
-
-    if (hours < 12) {
-        color = "#ADFF2F"
-        timeOfDay = "morning"
-        backgroundImage = `url("https://i.postimg.cc/76qTMLsS/normal-Time.jpg")`
-        
-    } else if (hours >= 12 && hours < 17) {
-        color = "#ff0000"
-        timeOfDay = "afternoon"
-        backgroundImage = `url("https://i.postimg.cc/KYxYCHP2/party-Time.jpg")`
-        
-    } else if (hours >= 17 && hours < 22) {
-        color = "#00008B"
-        timeOfDay = "evening"
-        backgroundImage = `url("https://i.postimg.cc/MHC65P6g/cat1.jpg")`
-        
-    } else {
-        color = "#ffffff"
-        timeOfDay = "night"
-        backgroundImage = `url("https://i.postimg.cc/VNZdMFtP/Cat-sleep.jpg")`
-        
-    }
-
-    return(
-    <div className="container" style={{ backgroundImage, color }} >
-            <h1>{this.state.time.toLocaleTimeString()}</h1>
-            <h2>Good {timeOfDay}..!</h2>
-    </div>
+    return (
+        <div>
+            <h1>Digital Clock</h1>
+            <hr/>
+            <h1 className="date">{date}</h1>
+            <h1 className="glow">
+                {hours}
+                :{minutes}
+                :{seconds}
+            </h1>
+        </div>
     )
-    }
 }
 
 const container = document.getElementById('root');
