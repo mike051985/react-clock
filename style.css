@@ -27,3 +27,46 @@ h1
     transform: translate(-50%, -50%);
 }
 
+
+/* Media Queries*/
+@media (max-width: 1200px) {
+    h1 {
+        font-size: 60px;
+    }
+
+    .date {
+        font-size: 40px;
+    }
+
+    .glow {
+        font-size: 60px;
+    }
+}
+
+@media (max-width: 720px) {
+    h1 {
+        font-size: 50px;
+    }
+
+    .date {
+        font-size: 25px;
+    }
+
+    .glow {
+        font-size: 50px;
+    }
+}
+
+@media (max-width: 450px) {
+    h1 {
+        font-size: 40px;
+    }
+
+    .date {
+        font-size: 16px;
+    }
+
+    .glow {
+        font-size: 40px;
+    }
+}
